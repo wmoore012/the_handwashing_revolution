@@ -6,7 +6,7 @@ from plotly.subplots import make_subplots
 
 # Page configuration
 st.set_page_config(
-    page_title="The Handwashing Tragedy",
+    page_title="The Handwashing Revolution",
     page_icon="🧼",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -49,14 +49,16 @@ def load_data():
 df = load_data()
 
 # Header Section
-st.markdown("# 🧼 The Deadly Cost of Ignorance: Dr. Semmelweis's Fight for Handwashing")
-st.markdown("### *When Simple Hygiene Could Have Saved Thousands of Mothers*")
+st.markdown("# 🧼 The Handwashing Revolution")
+st.markdown("### When Data Proved Handwashing Saves Lives (But Doctors Refused to Listen)")
 
 st.markdown("""
-In 1840s Vienna, women were **dying in childbirth at horrifying rates**—not from complications, 
-but from **preventable infections** spread by doctors' unwashed hands. Dr. Ignaz Semmelweis discovered 
-that **handwashing with chlorine could save lives**, yet his findings were rejected by the medical establishment. 
-This is the story of **preventable tragedy** and the power of evidence-based medicine.
+**The Problem (1841-1849):** Thousands of mothers died in childbirth at Vienna General Hospital from preventable infections.
+Dr. Ignaz Semmelweis had **data proving handwashing reduced mortality by over 80%**, yet the medical establishment rejected the evidence.
+
+**This dashboard visualizes the mortality data** that showed simple handwashing could save lives, and what happened when
+institutions chose pride over science. The lessons remain urgent today: healthcare-associated infections still kill thousands annually,
+and evidence-based decision making remains a life-or-death challenge.
 """)
 
 st.markdown("---")
@@ -77,7 +79,7 @@ potential_deaths_if_washed = births_before * (avg_mortality_after / 100)
 lives_could_have_saved = total_deaths_before - potential_deaths_if_washed
 
 # Big Number Visualizations
-st.markdown("## 💔 The Human Cost: Lives Lost to Unwashed Hands")
+st.markdown("## 💔 The Evidence: What the Data Revealed (1841-1849)")
 
 col1, col2, col3, col4 = st.columns(4)
 
