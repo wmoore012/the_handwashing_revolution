@@ -54,16 +54,18 @@ def load_data():
 df = load_data()
 
 # Header Section
-st.markdown("# 🧼 The Handwashing Revolution")
-st.markdown("### When Data Proved Handwashing Saves Lives (But Doctors Refused to Listen)")
+st.markdown("# 💔 When Doctors Killed More Mothers Than Disease")
+st.markdown("### The Deadly Cost of Ignoring Evidence")
 
 st.markdown("""
-**The Problem (1841-1849):** Thousands of mothers died in childbirth at Vienna General Hospital from preventable infections.
-Dr. Ignaz Semmelweis had **data proving handwashing reduced mortality by over 80%**, yet the medical establishment rejected the evidence.
+**Vienna, 1847.** Mothers are dying in childbirth at horrifying rates. Not from complications—from infections spread by doctors'
+unwashed hands. One physician, Dr. Ignaz Semmelweis, has the data: **handwashing reduces deaths by 80%**. The medical establishment's
+response? Mockery. Rejection. Outrage at the suggestion that *gentlemen's hands* could kill.
 
-**This dashboard visualizes the mortality data** that showed simple handwashing could save lives, and what happened when
-institutions chose pride over science. The lessons remain urgent today: healthcare-associated infections still kill thousands annually,
-and evidence-based decision making remains a life-or-death challenge.
+**Thousands of preventable deaths.** Clear evidence ignored. Institutional pride over human lives.
+
+**This dashboard shows what happened** when one clinic finally started washing hands in 1847—and what it cost to wait.
+The pattern repeats today: healthcare infections kill thousands annually while evidence sits unused.
 """)
 
 st.markdown("---")
@@ -150,9 +152,8 @@ st.markdown("## 📊 The Evidence: Data That Should Have Changed Everything")
 # Mortality Rate Over Time
 st.markdown("### 🔴 Preventable Deaths: Mortality Rates Before and After Handwashing")
 st.markdown("""
-**The red zone shows the tragedy**: In Clinic 1 (staffed by doctors), mothers died at rates **up to 16%**—
-while Clinic 2 (staffed by midwives with better hygiene) had rates as low as 2%. 
-**The green zone shows the miracle**: After handwashing was introduced in mid-1847, deaths plummeted.
+**Doctors killed mothers at 16%.** Midwives, who didn't perform autopsies, killed at 2%.
+After handwashing started in mid-1847, the death rate collapsed. The evidence was undeniable.
 """)
 
 fig_mortality = go.Figure()
