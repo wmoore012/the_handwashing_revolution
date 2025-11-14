@@ -40,6 +40,26 @@ st.markdown("""
         border-left: 5px solid #2ca02c;
         margin: 10px 0;
     }
+    .highlight-impact {
+        background-color: #e3f2fd;
+        padding: 30px;
+        border-left: 8px solid #1976d2;
+        margin: 20px 0;
+        text-align: center;
+    }
+    .huge-number {
+        font-size: 80px !important;
+        font-weight: bold;
+        color: #1976d2;
+        line-height: 1;
+        margin: 10px 0;
+    }
+    .impact-label {
+        font-size: 24px !important;
+        font-weight: bold;
+        color: #333;
+        margin-top: 10px;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -60,8 +80,11 @@ df = load_data()
 st.markdown("# 💔 When Unwashed Hands Killed More Mothers Than Disease")
 st.markdown("### The Deadly Cost of Ignoring Evidence")
 
+st.markdown("📍 **Location: Vienna, 1847.**")
+st.markdown("")
+
 st.markdown("""
-**Vienna, 1847.** Mothers are dying in childbirth at horrifying rates. Not from complications—from infections spread by doctors'
+Mothers are dying in childbirth at horrifying rates. Not from complications—from infections spread by doctors'
 unwashed hands. One physician, Dr. Ignaz Semmelweis, has the data: **handwashing reduces deaths by 80%**. The medical establishment's
 response? Mockery. Rejection. Outrage at the suggestion that *gentlemen's hands* could kill.
 
@@ -91,41 +114,42 @@ lives_could_have_saved = total_deaths_before - potential_deaths_if_washed
 # Big Number Visualizations
 st.markdown("## 💔 The Evidence: What the Data Revealed (1841-1849)")
 
-col1, col2, col3, col4 = st.columns(4)
+# Highlight the most important statistic - 81% reduction
+reduction_pct = ((avg_mortality_before - avg_mortality_after) / avg_mortality_before * 100)
+st.markdown(f"""
+<div class="highlight-impact">
+    <div style="font-size: 20px; color: #666; margin-bottom: 10px;">🧼 Impact of Handwashing</div>
+    <div class="huge-number">{reduction_pct:.0f}%</div>
+    <div class="impact-label">Reduction in Deaths</div>
+    <div style="font-size: 16px; color: #666; margin-top: 15px;">
+        When doctors started washing their hands with chlorine solution in mid-1847,<br>
+        the mortality rate dropped by more than four-fifths.
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("")
+
+# Two key statistics with improved formatting
+col1, col2 = st.columns(2)
 
 with col1:
-    st.metric(
-        label="⚰️ MOTHERS KILLED (Before Handwashing)",
-        value=f"{total_deaths_before:,}",
-        delta=None,
-        help="Total deaths in Clinic 1 from 1841-1846"
-    )
+    st.markdown(f"""
+    <div style="text-align: center; padding: 20px;">
+        <div style="font-size: 60px; font-weight: bold; color: #d62728; line-height: 1;">{total_deaths_before:,}</div>
+        <div style="font-size: 18px; font-weight: bold; color: #333; margin-top: 10px;">⚰️ MOTHERS KILLED</div>
+        <div style="font-size: 14px; color: #666; margin-top: 5px;">(Before Handwashing, 1841-1846)</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 with col2:
-    st.metric(
-        label="✋ Lives Saved (After Handwashing)",
-        value=f"{int(lives_could_have_saved):,}",
-        delta=f"-{((avg_mortality_before - avg_mortality_after) / avg_mortality_before * 100):.0f}% mortality",
-        delta_color="inverse",
-        help="Estimated lives that could have been saved if handwashing was implemented from the start"
-    )
-
-with col3:
-    st.metric(
-        label="📉 Mortality Rate DROP",
-        value=f"{avg_mortality_after:.1f}%",
-        delta=f"{avg_mortality_after - avg_mortality_before:.1f}%",
-        delta_color="inverse",
-        help="Average mortality rate after handwashing was introduced in 1847"
-    )
-
-with col4:
-    st.metric(
-        label="🧼 Impact of Handwashing",
-        value=f"{((avg_mortality_before - avg_mortality_after) / avg_mortality_before * 100):.0f}%",
-        delta="Reduction in deaths",
-        help="Percentage reduction in mortality after handwashing"
-    )
+    st.markdown(f"""
+    <div style="text-align: center; padding: 20px;">
+        <div style="font-size: 60px; font-weight: bold; color: #2ca02c; line-height: 1;">{int(lives_could_have_saved):,}</div>
+        <div style="font-size: 18px; font-weight: bold; color: #333; margin-top: 10px;">✋ LIVES COULD HAVE BEEN SAVED</div>
+        <div style="font-size: 14px; color: #666; margin-top: 5px;">(If handwashing started in 1841)</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -298,6 +322,10 @@ st.plotly_chart(fig_scatter, use_container_width=True)
 # Year-by-year breakdown
 st.markdown("---")
 st.markdown("## 📋 Year-by-Year Breakdown: The Complete Record")
+st.markdown("""
+**🧼 Key Milestone:** Handwashing with chlorine solution was introduced in **mid-1847** at Clinic 1.
+Notice the dramatic drop in mortality rate for Clinic 1 starting in 1847.
+""")
 
 # Add mortality rate category
 def categorize_mortality(rate):
@@ -311,8 +339,15 @@ def categorize_mortality(rate):
 display_df = filtered_df.copy()
 display_df['Status'] = display_df['mortality_rate'].apply(categorize_mortality)
 display_df['Mortality Rate (%)'] = display_df['mortality_rate']
-display_df = display_df[['Year', 'Clinic', 'Birth', 'Deaths', 'Mortality Rate (%)', 'Status']]
-display_df.columns = ['Year', 'Clinic', 'Births', 'Deaths', 'Mortality Rate (%)', 'Safety Status']
+
+# Add a marker column to highlight when handwashing started
+display_df['Handwashing Era'] = display_df.apply(
+    lambda row: '🧼 After Handwashing' if row['Year'] >= 1847 and row['Clinic'] == 'clinic 1' else 'Before Handwashing',
+    axis=1
+)
+
+display_df = display_df[['Year', 'Clinic', 'Birth', 'Deaths', 'Mortality Rate (%)', 'Status', 'Handwashing Era']]
+display_df.columns = ['Year', 'Clinic', 'Births', 'Deaths', 'Mortality Rate (%)', 'Safety Status', 'Era']
 
 st.dataframe(
     display_df.sort_values(['Year', 'Clinic']),
@@ -327,7 +362,31 @@ st.markdown("## 💡 The Lessons: Why This Still Matters Today")
 st.markdown("""
 ### 🧼 **Evidence-Based Medicine Saves Lives**
 Dr. Semmelweis proved that handwashing worked, yet he was **ridiculed and rejected** by the medical establishment.
-His career was destroyed, and he died in an asylum. Meanwhile, **thousands continued to die** from preventable infections.
+His career was destroyed, and he died in an asylum at age 47—**before his ideas were accepted**. Meanwhile, **thousands continued to die**
+from preventable infections for decades.
+
+**Why did this injustice happen?** The medical establishment's rejection wasn't based on science—it was driven by human biases and institutional failures:
+
+- **Pride & Ego:** Doctors couldn't accept that their "gentlemen's hands" could kill. Admitting the truth meant admitting they had been killing patients.
+- **Status Quo Bias:** The medical establishment had always done things a certain way. Change threatened their authority and expertise.
+- **Authority Bias:** Senior physicians rejected the evidence because it came from a younger, less prestigious doctor. Hierarchy mattered more than data.
+- **Cognitive Dissonance:** Accepting handwashing meant confronting the horrifying reality that they had caused thousands of preventable deaths.
+- **Institutional Inertia:** Medical schools, hospitals, and professional societies resisted change to protect their reputations and avoid accountability.
+
+These weren't evil people—they were smart, educated professionals trapped by the same mental biases we all face.
+
+### 🤔 **Reflective Questions: Protect Yourself from These Biases**
+
+Ask yourself these questions to avoid repeating history:
+
+1. **Am I rejecting evidence because it threatens my identity or expertise?**
+   *When data contradicts what I believe or how I've always done things, do I examine the evidence objectively—or do I defend my position?*
+
+2. **Am I dismissing ideas based on who presents them rather than their merit?**
+   *Do I give less weight to insights from people who are younger, less credentialed, or outside my "tribe"—even when their data is solid?*
+
+3. **Am I prioritizing institutional loyalty or personal comfort over truth and impact?**
+   *When I see evidence of harm or inefficiency, do I speak up and push for change—or do I stay silent to avoid conflict or protect the status quo?*
 
 ### 🔬 **Data Doesn't Lie—But People Ignore It**
 The evidence was clear: handwashing reduced mortality by **over 80%**. Yet pride, tradition, and resistance to change
