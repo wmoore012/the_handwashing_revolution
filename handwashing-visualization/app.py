@@ -54,7 +54,7 @@ def load_data():
 df = load_data()
 
 # Header Section
-st.markdown("# 💔 When Doctors Killed More Mothers Than Disease")
+st.markdown("# 💔 When Unwashed Hands Killed More Mothers Than Disease")
 st.markdown("### The Deadly Cost of Ignoring Evidence")
 
 st.markdown("""
@@ -152,7 +152,7 @@ st.markdown("## 📊 The Evidence: Data That Should Have Changed Everything")
 # Mortality Rate Over Time
 st.markdown("### 🔴 Preventable Deaths: Mortality Rates Before and After Handwashing")
 st.markdown("""
-**Doctors killed mothers at 16%.** Midwives, who didn't perform autopsies, killed at 2%.
+**Doctors' unwashed hands after autopsies caused 16% mortality.** Midwives (no autopsies): 2%.
 After handwashing started in mid-1847, the death rate collapsed. The evidence was undeniable.
 """)
 

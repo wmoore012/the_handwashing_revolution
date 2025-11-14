@@ -1,62 +1,76 @@
-# The Handwashing Revolution
+# 💔 When Unwashed Hands Killed More Mothers Than Disease
+
+## 🚀 **[VIEW LIVE DASHBOARD →](https://the-handwashing-revolution.streamlit.app)**
+
+---
 
 ## The Problem
 
-**Between 1841 and 1849, thousands of mothers died in childbirth from preventable infections at Vienna General Hospital.** Doctors had data proving that simple handwashing could reduce mortality by over 80%, yet they rejected the evidence. The result: continued preventable deaths while the medical establishment clung to pride and tradition over science.
+**Vienna, 1847.** Mothers dying in childbirth at horrifying rates. Not from complications—from infections spread by **doctors' unwashed hands**.
 
-**This interactive dashboard visualizes the mortality data (1841-1849) that Dr. Ignaz Semmelweis used to prove handwashing saves lives.** It shows what happens when institutions ignore evidence, and why data-driven decision making matters in life-and-death situations.
+**The evidence:** Handwashing reduces deaths by **80%**.
 
-**Modern relevance:** Healthcare-associated infections still kill thousands annually. Vaccine hesitancy, antibiotic resistance, and public health crises like COVID-19 echo the same pattern: clear evidence exists, yet human behavior lags behind the data. This project demonstrates how effective data visualization can make invisible tragedies visible and drive evidence-based action.
+**The response:** Mockery. Rejection. Outrage at the suggestion that *gentlemen's hands* could kill.
+
+**The result:** **Thousands of preventable deaths** while the medical establishment chose pride over science.
 
 ---
 
 ## What This Dashboard Shows
 
-📊 **Interactive visualizations** of mortality rates across two clinics (1841-1849)
-🧼 **The moment handwashing was introduced** (mid-1847) and its dramatic impact
-⚰️ **Lives lost vs. lives saved**: quantifying the human cost of ignoring evidence
-🔬 **Side-by-side clinic comparison**: why doctors were deadlier than midwives
-💡 **Historical context**: connecting 19th-century tragedy to modern healthcare challenges
+This interactive data visualization (built for UNCC Visual Analytics) reveals the deadly cost of ignoring evidence:
 
-**[→ Explore the Live Application](#)** *(link will be added after deployment)*
+📊 **Mortality rates across two clinics (1841-1849):** Unwashed hands after autopsies caused **16%** mortality, midwives **2%**
+🧼 **The moment handwashing started (mid-1847):** Death rates collapsed
+⚰️ **Lives lost vs. lives saved:** Quantifying preventable tragedy
+🔬 **Why Clinic 1 was deadlier:** Autopsies + unwashed hands = death
+💡 **Modern relevance:** Healthcare infections still kill thousands while evidence sits unused
 
 ---
 
-## The Story Behind the Data
+## The Data Story
 
-Vienna, 1840s. Two maternity clinics operated side by side in the same hospital. Same building, same conditions, same city. Yet women were **three times more likely to die** in Clinic 1 than Clinic 2.
+**Two clinics. Same hospital. Same city.**
 
-Mothers knew. They begged on their knees not to be admitted to Clinic 1. Some chose to give birth in the streets rather than enter those doors.
+Clinic 1 (doctors): **16% mortality rate**
+Clinic 2 (midwives): **2% mortality rate**
 
-Dr. Ignaz Semmelweis discovered why: doctors in Clinic 1 performed autopsies in the morning, then delivered babies in the afternoon **without washing their hands**. Midwives in Clinic 2 didn't perform autopsies.
+Mothers begged not to be admitted to Clinic 1. Some gave birth in the streets instead.
 
-He proposed something radical: wash your hands with chlorine solution. His colleagues mocked him. The idea that *gentlemen's hands* could transmit disease was offensive.
+**Why the difference?**
 
-**But the data told a different story.** When handwashing was introduced in mid-1847, mortality rates plummeted. The evidence was undeniable.
+Doctors performed autopsies in the morning, delivered babies in the afternoon. **No handwashing.**
+Midwives didn't perform autopsies.
 
-Yet Semmelweis was rejected by the medical establishment, lost his job, and died in an asylum at age 47. Meanwhile, thousands of mothers continued to die from preventable infections.
+**Dr. Ignaz Semmelweis had the answer:** Wash your hands with chlorine solution.
+
+**The medical establishment's response:** Mockery. The idea that *gentlemen's hands* could transmit disease was offensive.
+
+**The data's response:** When handwashing started in mid-1847, **deaths plummeted 80%**. Undeniable evidence.
+
+**The outcome:** Semmelweis was rejected, lost his job, died in an asylum at age 47. Thousands of mothers continued dying from preventable infections.
 
 **This dashboard makes that tragedy visible.**
 
 ---
 
-## Tech Stack
+## Technical Stack
 
 **Built with:**
-- **Streamlit** for the interactive web application
-- **Pandas** for data manipulation and analysis  
-- **Plotly** for dynamic, responsive visualizations
+- **Streamlit** → Interactive web application
+- **Pandas** → Data manipulation and analysis
+- **Plotly** → Dynamic, responsive visualizations
 
-**Why these tools?** Streamlit makes data stories accessible to everyone, not just data scientists. The goal was to create something that would make you *feel* the weight of the evidence, not just see it.
+**Design philosophy:** Make the data hit hard. Numbers should make you feel the weight of preventable deaths, not just see statistics.
 
 ---
 
-## Run It Yourself
+## Run Locally
 
 ```bash
 # Clone the repository
-git clone https://github.com/wmoore012/Smash.git
-cd Smash/handwashing-visualization
+git clone https://github.com/wmoore012/the_handwashing_revolution.git
+cd the_handwashing_revolution/handwashing-visualization
 
 # Install dependencies
 pip install -r requirements.txt
@@ -65,7 +79,7 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-The application will open in your browser at `http://localhost:8501`
+Opens at `http://localhost:8501`
 
 ---
 
