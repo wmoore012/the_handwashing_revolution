@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import os
 
 # Page configuration
 st.set_page_config(
@@ -42,7 +43,11 @@ st.markdown("""
 # Load data
 @st.cache_data
 def load_data():
-    df = pd.read_csv('yearly_deaths_by_clinic.csv')
+    # Get the directory where this script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # Construct the path to the CSV file in the same directory
+    csv_path = os.path.join(script_dir, 'yearly_deaths_by_clinic.csv')
+    df = pd.read_csv(csv_path)
     df['mortality_rate'] = (df['Deaths'] / df['Birth'] * 100).round(2)
     return df
 
