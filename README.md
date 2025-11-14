@@ -6,7 +6,9 @@
 
 ## The Problem
 
-**Vienna, 1847.** Mothers dying in childbirth at horrifying rates. Not from complications—from infections spread by **doctors' unwashed hands**.
+📍 **Location: Vienna, 1847.**
+
+Mothers dying in childbirth at horrifying rates. Not from complications—from infections spread by **doctors' unwashed hands**.
 
 **The evidence:** Handwashing reduces deaths by **80%**.
 
@@ -48,7 +50,7 @@ This interactive data visualization (built for UNCC Visual Analytics) reveals th
 
 **📊 The data's response:** When handwashing started in mid-1847, **deaths plummeted 80%**. Undeniable evidence.
 
-**💔 The outcome:** Semmelweis was rejected, lost his job, died in an asylum at age 47. Thousands of mothers continued dying from preventable infections.
+**💔 The outcome:** Semmelweis was rejected, lost his job, and died in an asylum at age 47—**before his ideas were accepted**. Thousands of mothers continued dying from preventable infections for decades.
 
 **👁️ This dashboard makes that tragedy visible.**
 
