@@ -5,6 +5,9 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import os
 
+# The Handwashing Revolution - Data Visualization
+# Vienna General Hospital Mortality Data (1841-1849)
+
 # Page configuration
 st.set_page_config(
     page_title="The Handwashing Revolution",
