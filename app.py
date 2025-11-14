@@ -319,6 +319,168 @@ fig_scatter.update_layout(
 
 st.plotly_chart(fig_scatter, use_container_width=True)
 
+# New comparison visualization section
+st.markdown("---")
+st.markdown("## 🔄 Side-by-Side Comparison: Doctors vs Midwives")
+st.markdown("""
+This visualization makes the stark difference between the two clinics impossible to miss.
+**Notice:** Clinic 1 (Doctors) shows deadly mortality rates before 1847, while Clinic 2 (Midwives) remained consistently safer.
+""")
+
+# Back-to-back horizontal bar chart
+st.markdown("### 📊 Back-to-Back Mortality Comparison")
+
+# Prepare data for back-to-back chart
+comparison_df = filtered_df.copy()
+
+# Add safety status for color coding
+def categorize_mortality(rate):
+    if rate < 3:
+        return "✅ Safe"
+    elif rate < 7:
+        return "⚠️ Concerning"
+    else:
+        return "🔴 DEADLY"
+
+comparison_df['Safety Status'] = comparison_df['mortality_rate'].apply(categorize_mortality)
+
+# Create separate dataframes for each clinic
+clinic1_data = comparison_df[comparison_df['Clinic'] == 'clinic 1'].sort_values('Year')
+clinic2_data = comparison_df[comparison_df['Clinic'] == 'clinic 2'].sort_values('Year')
+
+# Create the back-to-back bar chart
+fig_comparison = go.Figure()
+
+# Define colors for safety status
+color_map = {
+    "✅ Safe": "#2ca02c",
+    "⚠️ Concerning": "#ff7f0e",
+    "🔴 DEADLY": "#d62728"
+}
+
+# Add Clinic 1 bars (extending to the left - negative values)
+for status in ["🔴 DEADLY", "⚠️ Concerning", "✅ Safe"]:
+    clinic1_subset = clinic1_data[clinic1_data['Safety Status'] == status]
+    if not clinic1_subset.empty:
+        fig_comparison.add_trace(go.Bar(
+            name=f'Clinic 1 - {status}',
+            y=clinic1_subset['Year'],
+            x=-clinic1_subset['mortality_rate'],  # Negative for left side
+            orientation='h',
+            marker=dict(color=color_map[status]),
+            text=clinic1_subset['mortality_rate'].apply(lambda x: f'{x:.1f}%'),
+            textposition='inside',
+            hovertemplate='<b>Clinic 1 (Doctors)</b><br>Year: %{y}<br>Mortality: %{text}<extra></extra>',
+            showlegend=True
+        ))
+
+# Add Clinic 2 bars (extending to the right - positive values)
+for status in ["🔴 DEADLY", "⚠️ Concerning", "✅ Safe"]:
+    clinic2_subset = clinic2_data[clinic2_data['Safety Status'] == status]
+    if not clinic2_subset.empty:
+        fig_comparison.add_trace(go.Bar(
+            name=f'Clinic 2 - {status}',
+            y=clinic2_subset['Year'],
+            x=clinic2_subset['mortality_rate'],  # Positive for right side
+            orientation='h',
+            marker=dict(color=color_map[status]),
+            text=clinic2_subset['mortality_rate'].apply(lambda x: f'{x:.1f}%'),
+            textposition='inside',
+            hovertemplate='<b>Clinic 2 (Midwives)</b><br>Year: %{y}<br>Mortality: %{text}<extra></extra>',
+            showlegend=True
+        ))
+
+# Add a vertical line at x=0 (center axis)
+fig_comparison.add_vline(x=0, line_width=2, line_color="black")
+
+# Add horizontal line at 1847 to mark handwashing introduction
+fig_comparison.add_hline(
+    y=1847,
+    line_dash="dash",
+    line_color="green",
+    line_width=3,
+    annotation_text="🧼 Handwashing Introduced (Clinic 1)",
+    annotation_position="right"
+)
+
+# Update layout
+fig_comparison.update_layout(
+    title="Mortality Rate Comparison: Doctors (Left) vs Midwives (Right)",
+    xaxis_title="← Clinic 1 (Doctors) | Mortality Rate (%) | Clinic 2 (Midwives) →",
+    yaxis_title="Year",
+    barmode='overlay',
+    height=600,
+    template="plotly_white",
+    xaxis=dict(
+        tickvals=[-20, -15, -10, -5, 0, 5, 10, 15, 20],
+        ticktext=['20%', '15%', '10%', '5%', '0%', '5%', '10%', '15%', '20%'],
+        range=[-20, 20]
+    ),
+    yaxis=dict(
+        dtick=1,
+        autorange='reversed'  # Years from top to bottom
+    ),
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="center",
+        x=0.5
+    )
+)
+
+st.plotly_chart(fig_comparison, use_container_width=True)
+
+# Parallel tables comparison
+st.markdown("### 📋 Detailed Data: Side-by-Side Tables")
+st.markdown("""
+The tables below show the complete data for both clinics. Notice how the **Safety Status** columns meet in the middle,
+making it easy to compare the safety of each clinic year by year.
+""")
+
+# Prepare data for parallel tables
+table_df = filtered_df.copy()
+table_df['Safety Status'] = table_df['mortality_rate'].apply(categorize_mortality)
+table_df['Era'] = table_df.apply(
+    lambda row: '🧼 After' if row['Year'] >= 1847 and row['Clinic'] == 'clinic 1' else 'Before',
+    axis=1
+)
+
+# Split into two clinics
+clinic1_table = table_df[table_df['Clinic'] == 'clinic 1'].sort_values('Year')
+clinic2_table = table_df[table_df['Clinic'] == 'clinic 2'].sort_values('Year')
+
+# Create the two tables side by side
+col_left, col_right = st.columns(2)
+
+with col_left:
+    st.markdown("#### 👨‍⚕️ Clinic 1 (Doctors)")
+    # Prepare Clinic 1 table with specific column order
+    clinic1_display = clinic1_table[['Year', 'mortality_rate', 'Era', 'Safety Status']].copy()
+    clinic1_display.columns = ['Year', 'Mortality Rate (%)', 'Era', 'Safety Status']
+    clinic1_display['Mortality Rate (%)'] = clinic1_display['Mortality Rate (%)'].round(1)
+
+    st.dataframe(
+        clinic1_display,
+        use_container_width=True,
+        hide_index=True,
+        height=400
+    )
+
+with col_right:
+    st.markdown("#### 👩‍⚕️ Clinic 2 (Midwives)")
+    # Prepare Clinic 2 table with REVERSED column order (mirror effect)
+    clinic2_display = clinic2_table[['Safety Status', 'Era', 'mortality_rate', 'Year']].copy()
+    clinic2_display.columns = ['Safety Status', 'Era', 'Mortality Rate (%)', 'Year']
+    clinic2_display['Mortality Rate (%)'] = clinic2_display['Mortality Rate (%)'].round(1)
+
+    st.dataframe(
+        clinic2_display,
+        use_container_width=True,
+        hide_index=True,
+        height=400
+    )
+
 # Year-by-year breakdown
 st.markdown("---")
 st.markdown("## 📋 Year-by-Year Breakdown: The Complete Record")
