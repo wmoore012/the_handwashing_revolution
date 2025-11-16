@@ -329,66 +329,93 @@ This visualization makes the stark difference between the two clinics impossible
 
 # Back-to-back horizontal bar chart
 st.markdown("### 📊 Back-to-Back Mortality Comparison")
+st.markdown("""
+**Visual Guide:** Muted red (doctors) vs muted blue (midwives) before 1847 → **Bright green transformation** after handwashing.
+""")
 
 # Prepare data for back-to-back chart
 comparison_df = filtered_df.copy()
-
-# Add safety status for color coding
-def categorize_mortality(rate):
-    if rate < 3:
-        return "✅ Safe"
-    elif rate < 7:
-        return "⚠️ Concerning"
-    else:
-        return "🔴 DEADLY"
-
-comparison_df['Safety Status'] = comparison_df['mortality_rate'].apply(categorize_mortality)
 
 # Create separate dataframes for each clinic
 clinic1_data = comparison_df[comparison_df['Clinic'] == 'clinic 1'].sort_values('Year')
 clinic2_data = comparison_df[comparison_df['Clinic'] == 'clinic 2'].sort_values('Year')
 
+# Split data into before/after 1847
+clinic1_before = clinic1_data[clinic1_data['Year'] < 1847]
+clinic1_after = clinic1_data[clinic1_data['Year'] >= 1847]
+clinic2_before = clinic2_data[clinic2_data['Year'] < 1847]
+clinic2_after = clinic2_data[clinic2_data['Year'] >= 1847]
+
 # Create the back-to-back bar chart
 fig_comparison = go.Figure()
 
-# Define colors for safety status
-color_map = {
-    "✅ Safe": "#2ca02c",
-    "⚠️ Concerning": "#ff7f0e",
-    "🔴 DEADLY": "#d62728"
-}
+# Define color scheme
+# Muted/desaturated red for Clinic 1 before 1847
+clinic1_before_color = "#A68A8A"  # Grayish-red
+# Muted/desaturated blue for Clinic 2 before 1847
+clinic2_before_color = "#8AA6A6"  # Grayish-blue
+# Bright green for both clinics after 1847
+after_color = "#2ca02c"  # Bright green
 
-# Add Clinic 1 bars (extending to the left - negative values)
-for status in ["🔴 DEADLY", "⚠️ Concerning", "✅ Safe"]:
-    clinic1_subset = clinic1_data[clinic1_data['Safety Status'] == status]
-    if not clinic1_subset.empty:
-        fig_comparison.add_trace(go.Bar(
-            name=f'Clinic 1 - {status}',
-            y=clinic1_subset['Year'],
-            x=-clinic1_subset['mortality_rate'],  # Negative for left side
-            orientation='h',
-            marker=dict(color=color_map[status]),
-            text=clinic1_subset['mortality_rate'].apply(lambda x: f'{x:.1f}%'),
-            textposition='inside',
-            hovertemplate='<b>Clinic 1 (Doctors)</b><br>Year: %{y}<br>Mortality: %{text}<extra></extra>',
-            showlegend=True
-        ))
+# Add Clinic 1 bars BEFORE 1847 (extending to the left - negative values)
+if not clinic1_before.empty:
+    fig_comparison.add_trace(go.Bar(
+        name='Clinic 1 (Before Handwashing)',
+        y=clinic1_before['Year'],
+        x=-clinic1_before['mortality_rate'],  # Negative for left side
+        orientation='h',
+        marker=dict(color=clinic1_before_color),
+        text=clinic1_before['mortality_rate'].apply(lambda x: f'{x:.1f}%'),
+        textposition='inside',
+        textfont=dict(color='white', size=11),
+        hovertemplate='<b>Clinic 1 (Doctors) - Before Handwashing</b><br>Year: %{y}<br>Mortality: %{text}<extra></extra>',
+        showlegend=True
+    ))
 
-# Add Clinic 2 bars (extending to the right - positive values)
-for status in ["🔴 DEADLY", "⚠️ Concerning", "✅ Safe"]:
-    clinic2_subset = clinic2_data[clinic2_data['Safety Status'] == status]
-    if not clinic2_subset.empty:
-        fig_comparison.add_trace(go.Bar(
-            name=f'Clinic 2 - {status}',
-            y=clinic2_subset['Year'],
-            x=clinic2_subset['mortality_rate'],  # Positive for right side
-            orientation='h',
-            marker=dict(color=color_map[status]),
-            text=clinic2_subset['mortality_rate'].apply(lambda x: f'{x:.1f}%'),
-            textposition='inside',
-            hovertemplate='<b>Clinic 2 (Midwives)</b><br>Year: %{y}<br>Mortality: %{text}<extra></extra>',
-            showlegend=True
-        ))
+# Add Clinic 1 bars AFTER 1847 (bright green)
+if not clinic1_after.empty:
+    fig_comparison.add_trace(go.Bar(
+        name='Clinic 1 (After Handwashing)',
+        y=clinic1_after['Year'],
+        x=-clinic1_after['mortality_rate'],  # Negative for left side
+        orientation='h',
+        marker=dict(color=after_color),
+        text=clinic1_after['mortality_rate'].apply(lambda x: f'{x:.1f}%'),
+        textposition='inside',
+        textfont=dict(color='white', size=11),
+        hovertemplate='<b>Clinic 1 (Doctors) - After Handwashing</b><br>Year: %{y}<br>Mortality: %{text}<extra></extra>',
+        showlegend=True
+    ))
+
+# Add Clinic 2 bars BEFORE 1847 (extending to the right - positive values)
+if not clinic2_before.empty:
+    fig_comparison.add_trace(go.Bar(
+        name='Clinic 2 (Before Handwashing)',
+        y=clinic2_before['Year'],
+        x=clinic2_before['mortality_rate'],  # Positive for right side
+        orientation='h',
+        marker=dict(color=clinic2_before_color),
+        text=clinic2_before['mortality_rate'].apply(lambda x: f'{x:.1f}%'),
+        textposition='inside',
+        textfont=dict(color='white', size=11),
+        hovertemplate='<b>Clinic 2 (Midwives) - Before Handwashing</b><br>Year: %{y}<br>Mortality: %{text}<extra></extra>',
+        showlegend=True
+    ))
+
+# Add Clinic 2 bars AFTER 1847 (bright green)
+if not clinic2_after.empty:
+    fig_comparison.add_trace(go.Bar(
+        name='Clinic 2 (After Handwashing)',
+        y=clinic2_after['Year'],
+        x=clinic2_after['mortality_rate'],  # Positive for right side
+        orientation='h',
+        marker=dict(color=after_color),
+        text=clinic2_after['mortality_rate'].apply(lambda x: f'{x:.1f}%'),
+        textposition='inside',
+        textfont=dict(color='white', size=11),
+        hovertemplate='<b>Clinic 2 (Midwives) - After Handwashing</b><br>Year: %{y}<br>Mortality: %{text}<extra></extra>',
+        showlegend=True
+    ))
 
 # Add a vertical line at x=0 (center axis)
 fig_comparison.add_vline(x=0, line_width=2, line_color="black")
@@ -397,15 +424,40 @@ fig_comparison.add_vline(x=0, line_width=2, line_color="black")
 fig_comparison.add_hline(
     y=1847,
     line_dash="dash",
-    line_color="green",
-    line_width=3,
-    annotation_text="🧼 Handwashing Introduced (Clinic 1)",
-    annotation_position="right"
+    line_color="#2ca02c",
+    line_width=4,
+    annotation_text="🧼 HANDWASHING INTRODUCED",
+    annotation_position="right",
+    annotation_font=dict(size=14, color="#2ca02c", family="Arial Black")
 )
+
+# Add animated circle/marker at 1847 to draw attention
+# Using a scatter point with large marker
+fig_comparison.add_trace(go.Scatter(
+    x=[0],  # Center of the chart
+    y=[1847],
+    mode='markers',
+    marker=dict(
+        size=30,
+        color='rgba(255, 0, 0, 0.3)',  # Semi-transparent red
+        line=dict(
+            color='red',
+            width=3
+        ),
+        symbol='circle'
+    ),
+    name='Pivotal Moment',
+    hovertemplate='<b>1847: Handwashing Introduced</b><br>This is when everything changed<extra></extra>',
+    showlegend=False
+))
 
 # Update layout
 fig_comparison.update_layout(
-    title="Mortality Rate Comparison: Doctors (Left) vs Midwives (Right)",
+    title={
+        'text': "Mortality Rate Comparison: Doctors (Left) vs Midwives (Right)<br><sub>Watch the transformation at 1847 when handwashing began</sub>",
+        'x': 0.5,
+        'xanchor': 'center'
+    },
     xaxis_title="← Clinic 1 (Doctors) | Mortality Rate (%) | Clinic 2 (Midwives) →",
     yaxis_title="Year",
     barmode='overlay',
@@ -425,7 +477,8 @@ fig_comparison.update_layout(
         yanchor="bottom",
         y=1.02,
         xanchor="center",
-        x=0.5
+        x=0.5,
+        font=dict(size=11)
     )
 )
 
@@ -437,6 +490,15 @@ st.markdown("""
 The tables below show the complete data for both clinics. Notice how the **Safety Status** columns meet in the middle,
 making it easy to compare the safety of each clinic year by year.
 """)
+
+# Define safety status categorization function for tables
+def categorize_mortality(rate):
+    if rate < 3:
+        return "✅ Safe"
+    elif rate < 7:
+        return "⚠️ Concerning"
+    else:
+        return "🔴 DEADLY"
 
 # Prepare data for parallel tables
 table_df = filtered_df.copy()
