@@ -13,6 +13,23 @@ The medical establishment's response? **Mockery. Rejection. Thousands of prevent
 
 **This analysis proves what the data showed 175 years ago**—and why the same patterns of bias still kill people today.
 
+| 💀 Before Handwashing | ✅ After Handwashing | 📊 Impact |
+|----------------------|---------------------|-----------|
+| **9.9%** mortality | **2.0%** mortality | **80% reduction** |
+| **1,989** deaths (1841-1846) | Could have saved **1,298** lives | **6 years** of inaction |
+
+---
+
+## 📊 Interactive Dashboard Preview
+
+<!-- TODO: Add screenshot after deployment
+<img src="assets/dashboard-preview.png" alt="Handwashing Revolution Dashboard" width="100%">
+-->
+
+**📸 Screenshot Instructions:** After the app is live, take a full-page screenshot and save it as `assets/dashboard-preview.png`, then uncomment the image tag above.
+
+**👆 [Explore the live interactive dashboard →](https://thehandwashingrevolution1841.streamlit.app)**
+
 ---
 
 ## 📊 The Data: Two Clinics, One Deadly Difference
@@ -120,6 +137,24 @@ Even today, **healthcare-associated infections** kill thousands annually. Proper
 
 ---
 
+## 🎯 What This Project Demonstrates
+
+**For Data Science Recruiters:**
+
+| Skill | Evidence in This Project |
+|-------|--------------------------|
+| **Data Storytelling** | Transformed historical data into a narrative that connects 1847 to modern cognitive biases |
+| **Statistical Analysis** | Before/after comparison, mortality rate calculations, 80% reduction quantification |
+| **Visualization Design** | Interactive dashboard with clear visual hierarchy, color-coded insights, and animated indicators |
+| **Python & Pandas** | Data cleaning, time series analysis, mortality rate calculations, data aggregation |
+| **Streamlit Development** | Built and deployed production-ready web app with custom CSS and interactive components |
+| **Critical Thinking** | Identified and articulated 5 cognitive biases that explain institutional failure |
+| **Communication** | Translated complex historical/medical data into insights accessible to non-technical audiences |
+
+**Bonus:** This project shows I can communicate complex technical concepts to non-technical stakeholders—critical for data science roles that bridge technical and business teams.
+
+---
+
 ## 🛠️ Technical Implementation
 
 **Tools & Technologies:**
@@ -133,8 +168,7 @@ Even today, **healthcare-associated infections** kill thousands annually. Proper
 - Before/after intervention analysis (pre-1847 vs post-1847)
 - Mortality rate calculations and statistical comparisons
 - Visual storytelling with color-coded safety indicators
-
-**Data Source:** Historical maternal mortality records from Vienna General Hospital's two maternity clinics (1841-1849)
+- Back-to-back horizontal bar charts with gradient color schemes
 
 **Design Philosophy:** Make the data hit hard. Numbers should make you feel the weight of preventable deaths, not just see statistics.
 
@@ -142,7 +176,21 @@ Even today, **healthcare-associated infections** kill thousands annually. Proper
 
 ---
 
-## 🚀 Run Locally
+## 📚 Data Source
+
+**Original Dataset:** Historical mortality records from Vienna General Hospital (1841-1849)
+- **Source:** Public domain historical medical records
+- **Format:** CSV (`yearly_deaths_by_clinic.csv`)
+- **Metrics:** Year, births, deaths, clinic assignment
+- **Preprocessing:** Calculated mortality rates, standardized clinic names, handled date formatting
+
+**Ethical Note:** This analysis uses historical data. All individuals in this dataset have been deceased for over 170 years.
+
+---
+
+## 💻 Run It Yourself
+
+Want to explore the code and run the dashboard locally?
 
 ```bash
 # Clone the repository
@@ -155,6 +203,10 @@ pip install -r requirements.txt
 # Launch the app
 streamlit run app.py
 ```
+
+**Requirements:** Python 3.10+, Streamlit, Pandas, Plotly
+
+📦 **Dependencies:** All requirements specified in `requirements.txt`
 
 Opens at `http://localhost:8501`
 
@@ -192,6 +244,19 @@ This isn't just history—it's a case study in:
 
 *"The time will come when great nations will find their numbers year by year diminishing... when the cradle will ask in vain for a new citizen."*
 — **Dr. Ignaz Semmelweis, 1861**
+
+---
+
+## 📬 Let's Connect
+
+**Interested in how I approach data storytelling and evidence-based analysis?**
+
+- 💼 **LinkedIn:** [linkedin.com/in/wiltonmoore](https://linkedin.com/in/wiltonmoore/)
+- 📧 **Email:** wmoore012@gmail.com
+- 💻 **GitHub:** [github.com/wmoore012](https://github.com/wmoore012)
+- 🔗 **More Projects:** [View Portfolio →](https://github.com/wmoore012?tab=repositories)
+
+*Built for UNCC's Visual Analytics & Storytelling (DSBA 5122) with Prof. Ilieva Ageenko*
 
 ---
 
