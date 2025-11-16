@@ -22,13 +22,22 @@ The medical establishment's response? **Mockery. Rejection. Thousands of prevent
 
 ## 📊 Interactive Dashboard Preview
 
-<!-- TODO: Add screenshot after deployment
-<img src="assets/dashboard-preview.png" alt="Handwashing Revolution Dashboard" width="100%">
--->
-
-**📸 Screenshot Instructions:** After the app is live, take a full-page screenshot and save it as `assets/dashboard-preview.png`, then uncomment the image tag above.
+<img src="assets/dashboard-hero.png" alt="Handwashing Revolution Dashboard - Header and Key Metrics" width="100%">
 
 **👆 [Explore the live interactive dashboard →](https://thehandwashingrevolution1841.streamlit.app)**
+
+<details>
+<summary><strong>📸 View More Dashboard Screenshots (Click to Expand)</strong></summary>
+
+<br>
+
+### Section 2: Side-by-Side Comparison & Visualizations
+<img src="assets/dashboard-section-2.png" alt="Dashboard Section 2 - Comparison Charts" width="100%">
+
+### Section 3: Year-by-Year Data & Analysis
+<img src="assets/dashboard-section-3.png" alt="Dashboard Section 3 - Detailed Data Tables" width="100%">
+
+</details>
 
 ---
 
