@@ -463,7 +463,7 @@ fig_comparison.update_layout(
     barmode='overlay',
     height=600,
     template="plotly_white",
-    margin=dict(t=120, b=80, l=80, r=80),  # Added top margin for legend spacing
+    margin=dict(t=80, b=80, l=80, r=280),  # Added right margin for vertical legend
     xaxis=dict(
         tickvals=[-20, -15, -10, -5, 0, 5, 10, 15, 20],
         ticktext=['20%', '15%', '10%', '5%', '0%', '5%', '10%', '15%', '20%'],
@@ -474,17 +474,15 @@ fig_comparison.update_layout(
         autorange='reversed'  # Years from top to bottom
     ),
     legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.08,  # Increased from 1.02 to move legend higher and prevent overlap
-        xanchor="center",
-        x=0.5,
-        font=dict(size=12),  # Increased from 11 to 12 for better readability
-        bgcolor="rgba(255, 255, 255, 0.9)",  # Semi-transparent white background
-        bordercolor="rgba(200, 200, 200, 0.5)",  # Light gray border
-        borderwidth=1,
-        itemsizing='constant',  # Consistent sizing for legend items
-        tracegroupgap=15  # Increased spacing between legend items (default is 10)
+        orientation="v",  # Changed to vertical for better spacing with 4 items
+        yanchor="top",
+        y=0.98,  # Position at top of chart area
+        xanchor="left",
+        x=1.02,  # Position to the right of the chart
+        font=dict(size=11),
+        bgcolor="rgba(255, 255, 255, 0.95)",  # Semi-transparent white background
+        bordercolor="rgba(150, 150, 150, 0.8)",  # Visible border
+        borderwidth=1
     )
 )
 
