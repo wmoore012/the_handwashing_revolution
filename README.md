@@ -13,7 +13,7 @@ The medical establishment's response? **Mockery. Rejection. Thousands of prevent
 
 **This analysis proves what the data showed 175 years ago**—and why the same patterns of bias still kill people today.
 
-| 💀 Before Handwashing | ✅ After Handwashing | 📊 Impact |
+| 🕊️ Before Handwashing | ✅ After Handwashing | 📊 Impact |
 |----------------------|---------------------|-----------|
 | **9.9%** mortality | **2.0%** mortality | **80% reduction** |
 | **1,989** deaths (1841-1846) | Could have saved **1,298** lives | **6 years** of inaction |
@@ -24,18 +24,24 @@ The medical establishment's response? **Mockery. Rejection. Thousands of prevent
 
 <img src="assets/dashboard-hero.png" alt="Handwashing Revolution Dashboard - Header and Key Metrics" width="100%">
 
+<img src="assets/dashboard-section-2.png" alt="Dashboard Section 2 - Side-by-Side Comparison & Visualizations" width="100%">
+
+<img src="assets/dashboard-section-3.png" alt="Dashboard Section 3 - Year-by-Year Data & Analysis" width="100%">
+
 **👆 [Explore the live interactive dashboard →](https://thehandwashingrevolution1841.streamlit.app)**
 
 <details>
-<summary><strong>📸 View More Dashboard Screenshots (Click to Expand)</strong></summary>
+<summary><strong>💡 About These Screenshots</strong></summary>
 
 <br>
 
-### Section 2: Side-by-Side Comparison & Visualizations
-<img src="assets/dashboard-section-2.png" alt="Dashboard Section 2 - Comparison Charts" width="100%">
+The three screenshots above show the complete dashboard from top to bottom:
 
-### Section 3: Year-by-Year Data & Analysis
-<img src="assets/dashboard-section-3.png" alt="Dashboard Section 3 - Detailed Data Tables" width="100%">
+1. **Header & Key Metrics** - Title, narrative introduction, and the 80% reduction statistic
+2. **Side-by-Side Comparison** - Back-to-back horizontal bar chart and parallel tables showing Clinic 1 (Doctors) vs Clinic 2 (Midwives)
+3. **Year-by-Year Analysis** - Detailed data tables with Era column and actionable takeaways section
+
+**All visualizations are interactive in the live dashboard** - hover over data points, explore the timeline, and see the transformation at 1847.
 
 </details>
 
