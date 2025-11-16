@@ -77,8 +77,8 @@ def load_data():
 df = load_data()
 
 # Header Section
-st.markdown("# 💔 When Unwashed Hands Killed More Mothers Than Disease")
-st.markdown("### The Deadly Cost of Ignoring Evidence")
+st.markdown("# 💔 When Doctors' Hands Killed More Than Disease")
+st.markdown("### The Deadly Cost of Ignoring Data-Driven Evidence")
 
 st.markdown("📍 **Location: Vienna, 1847.**")
 st.markdown("")
